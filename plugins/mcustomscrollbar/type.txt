@@ -1,0 +1,24 @@
+<div class="styleScroll">
+  <div style="height: 1000px; background: red;">
+    &nbsp;
+  </div>
+</div>
+
+  
+$('.styleScroll').mCustomScrollbar({
+  theme: 'styleScrollTheme',
+  autoHideScrollbar: false,
+  scrollButtons:{
+    enable: true,
+    scrollAmount: '10px'
+  },
+  mouseWheel:{
+    scrollAmount: '100px'
+  },
+  keyboard: {
+    scrollAmount: '10px'
+  },
+  contentTouchScroll: true,
+  scrollInertia: 1200,
+  scrollEasing: "easeOut",
+});

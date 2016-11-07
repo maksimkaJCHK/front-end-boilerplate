@@ -1,0 +1,36 @@
+$font-main: $font-main-weight $font-main-style #{$font-main-size}/#{$font-main-line-height} $font-main-family;
+%htmlBody {
+	width: 100%;
+  height: 100%;
+}
+html {
+	@extend %htmlBody;
+	font: $font-main;
+	background: $background-html;
+}
+body {
+	@extend %htmlBody;
+	background: $background-body;
+}
+#main {
+	width: $main-width;
+	min-height: $main-min-height;
+	margin: $main-mar;
+	background: $background-main;
+}
+#wrapper {
+	@include pie-clearfix;
+	width: $wrapper-width;
+	min-width: $wrapper-min-width;
+	max-width: $wrapper-max-width;
+	margin: $wrapper-mar;
+	background: $background-wrapper;
+}
+header {
+	height: $header-height;
+	background: $background-header;
+}
+footer {
+	height: $footer-height;
+	background: $background-footer;
+}

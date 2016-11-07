@@ -1,0 +1,23 @@
+<div id="rangeSlider"></div>
+<div>
+	<input type="text" value="150" id="minCost">
+	<input type="text" value="750" id="maxCost">
+</div>
+
+
+$("#rangeSlider").slider({
+  min: 0,
+  max: 1000,
+  values: [150, 750],
+  animate: 400,
+  range: true,
+  step: 5,
+  stop: function(event, ui) {
+    jQuery("input#minCost").val(jQuery("#rangeSlider").slider("values",0));
+    jQuery("input#maxCost").val(jQuery("#rangeSlider").slider("values",1));
+  },
+  slide: function(event, ui){
+    jQuery("input#minCost").val(jQuery("#rangeSlider").slider("values",0));
+    jQuery("input#maxCost").val(jQuery("#rangeSlider").slider("values",1));
+  }
+});

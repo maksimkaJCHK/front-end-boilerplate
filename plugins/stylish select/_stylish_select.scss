@@ -1,0 +1,147 @@
+$ssWrapperWidth: 252px;
+$ssWrapperPad: 0 20px 0 20px;
+$ssWrapperHeight: 22px;
+$ssWrapperBack: url(../images/stylish_select/select-bg.png) no-repeat;
+$ssWrapperColor: #990;
+$ssWrapperFont: none;
+$ssWrapperBorder: none;
+
+$ssWrapperHoverActiveBGP: 0 -22px;
+
+$ssTextWidth: 243px;
+$ssTextHeight: 17px;
+$ssTextPad: 3px 23px 0 0;
+$ssTextFont: none;
+$ssTextBack: none;
+
+$ssPopBack: orange;
+$ssPopBorder: 2px solid #090;
+$ssPopMar: 0;
+$ssPopPad: 0;
+$ssPopWidth: 100%;
+$ssPopFont: none;
+
+$ssItemPad: 10px 20px;
+$ssItemColor: #000;
+$ssItemFont: none;
+
+$ssItemActiveBack: #650101;
+$ssItemActiveColor: #fff;
+$ssItemActiveFont: none;
+
+$ssItemHoverBack: #999;
+$ssItemHoverColor: #fff;
+$ssItemHoverFont: none;
+
+.stylish-select  {
+  .SSContainerDivWrapper {
+    left: -9999px;
+    margin: 0;
+    padding: 0;
+    width: $ssPopWidth;
+    position: absolute;
+    top: 22px;
+    left: 0;
+    z-index: 2;
+    @if $ssPopFont != none {
+      font: $ssPopFont;
+    }
+  }
+  ul.newList {
+    margin: $ssPopMar;
+    padding: $ssPopPad;
+    list-style: none;
+    color: #000;
+    background: $ssPopBack;
+    border: $ssPopBorder;
+    overflow: auto;
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    a {
+      color: $ssItemColor;
+      text-decoration: none;
+      display: block;
+      padding: $ssItemPad;
+      @if $ssItemFont != none {
+        font: $ssItemFont;
+      }
+    }
+  }
+  .newListSelected {
+    width: $ssWrapperWidth;
+    color: $ssWrapperColor;
+    height: $ssWrapperHeight;
+    padding: $ssWrapperPad;
+    float: left;
+    background: $ssWrapperBack;
+    @if $ssWrapperFont != none {
+      font: $ssWrapperFont;
+    }
+    @if $ssWrapperBorder != none {
+      border: $ssWrapperBorder;
+    }
+  }
+  ul.newList li a:focus {
+    -moz-outline-style: none;
+  }
+  .selectedTxt {
+    width: $ssTextWidth;
+    overflow: hidden;
+    height: $ssTextHeight;
+    padding: $ssTextPad;
+    @if $ssTextFont != none {
+      font: $ssTextFont;
+    }
+    @if $ssTextBack {
+      background: $ssTextBack;
+    }
+  }
+  .newList {
+    .newListHover  {
+      background: $ssItemHoverBack;
+      color: $ssItemHoverColor;
+      cursor: default;
+      @if $ssItemHoverFont != none {
+        font: $ssItemHoverFont;
+      }
+    }
+    .hiLite {
+      background: $ssItemActiveBack;
+      color: $ssItemActiveColor;
+      @if $ssItemActiveFont != none {
+        font: $ssItemActiveFont;
+      }
+    }
+  }
+  .newListDisabled {
+    opacity: 0.6;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+    filter: alpha(opacity=60);
+  }
+  .newListItemDisabled  {
+    opacity: 0.6;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+    filter: alpha(opacity=60);
+  }
+  .newListOptionDisabled  {
+    opacity: 0.6;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+    filter: alpha(opacity=60);
+  }
+  .newListSelHover,
+  .newListSelFocus {
+    background-position: $ssWrapperHoverActiveBGP;
+    cursor: default;
+  }
+  .newListOptionTitle {
+    font-weight:bold;
+    ul {
+      margin: 3px 0 0;
+    }
+    li {
+      font-weight: normal;
+    }
+  }
+}

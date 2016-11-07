@@ -1,0 +1,69 @@
+$rangeWidth: 450px;
+
+$rangeHandleWidth: 25px;
+$rangeHandleHeight: 25px;
+$rangeHandleColor: #080;
+$rangeHandleTopPos: -9px;
+$rangeHandleLeftPos: -6px;
+
+$rangeHeight: 8px;
+$rangeBack: blue;
+$rangeBorder: 2px solid #000;
+$rangeBorderRadius: 8px;
+
+$rangeActiveBack: red;
+$rangeActiveBorder: 2px solid #000;
+
+#rangeSlider {
+	width: $rangeWidth;
+}
+.ui-slider {
+	position: relative;
+}
+.ui-slider .ui-slider-handle {
+	position: absolute;
+	z-index: 2;
+	width: $rangeHandleWidth;
+	height: $rangeHandleHeight;
+	background: $rangeHandleColor;
+	cursor: pointer
+}
+.ui-slider .ui-slider-range {
+	position: absolute;
+	z-index: 1;
+	font-size: .7em;
+	display: block;
+	border: 0;
+	overflow: hidden;
+}
+
+.ui-slider-horizontal {
+	 height: $rangeHeight;
+}
+.ui-slider-horizontal .ui-slider-handle { 
+	top: $rangeHandleTopPos;
+	margin-left: $rangeHandleLeftPos;
+}
+.ui-slider-horizontal .ui-slider-range {
+	top: 0;
+	height: 100%;
+}
+.ui-slider-horizontal .ui-slider-range-min { 
+	left: 0;
+}
+.ui-slider-horizontal .ui-slider-range-max {
+	right: 0;
+}
+.ui-widget-content { 
+	border: $rangeBorder;
+	background: $rangeBack;
+}
+.ui-widget-header { 
+	border: $rangeActiveBorder;
+	background: $rangeActiveBack;
+}
+.ui-corner-all {
+	-moz-border-radius: $rangeBorderRadius;
+	-webkit-border-radius: $rangeBorderRadius;
+	border-radius: $rangeBorderRadius;
+}

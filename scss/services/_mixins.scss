@@ -1,0 +1,37 @@
+@mixin logo {
+  display: block;
+  text-decoration: none;
+}
+@mixin size($widthLogo, $heightLogo) {
+  width: $widthLogo;
+  height: $heightLogo;
+}
+@mixin logo-size($widthLogoS, $heightLogoS) {
+	@extend %logo;
+  @include size($widthLogoS, $heightLogoS);
+}
+@mixin no-user-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+} 
+@mixin animation($animation...) {
+  -o-animation: $animation;
+  -moz-animation: $animation;
+  -webkit-animation: $animation;
+  animation: $animation;
+}
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content; 
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  } 
+}

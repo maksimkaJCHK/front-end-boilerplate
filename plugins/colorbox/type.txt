@@ -1,0 +1,11 @@
+<a href="images/1Gee0iJxWA8.jpg" rel='gal' class="colorbox" title=""><img src="images/1Gee0iJxWA8.jpg" ></a>
+<a href="images/5EyNJctlJCM.jpg" rel='gal' class="colorbox" title=""><img src="images/5EyNJctlJCM.jpg" >200"></a>
+
+$(document).on('ready', function() {
+	$('.colorbox').colorbox({
+		rel:'gal',
+		maxHeight: "90%",
+		next: 'Следующая картинка',
+		previous: 'Предыдущая картинка'
+	});
+});
