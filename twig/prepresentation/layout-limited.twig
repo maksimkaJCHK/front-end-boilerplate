@@ -24,13 +24,7 @@
     </div>
   </div>
   <footer>
-    {% if fullFooter == true %}
-    <div class="wrapper">
-      {% block footer %}{% endblock footer %}
-    </div>
-    {% else %}
-      {% block footer %}{% endblock footer %}
-    {% endif %}
+    {% block footer %}{% endblock footer %}
   </footer>
   <script src="js/main.js" type="text/javascript"></script>
 </body>
