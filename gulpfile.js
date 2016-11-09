@@ -20,10 +20,11 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('project/css'));
 });
 gulp.task('scripts', function() {
-  gulp.src('js-concat/*.js')
+  gulp.src(['js-concat/libraries/*.js', 'js-concat/plugins/*.js', 'js-concat/main-function.js', 'js-concat/main.js'])
     .pipe(concat('main.js'))
-    //.pipe(uglify())
     .pipe(gulp.dest('project/js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('project/js/min'))
 });
 gulp.task('twig', function () {
   'use strict';
@@ -66,6 +67,12 @@ gulp.task('default', function() {
   });
   gulp.watch('scss/plugins/**', function(event) {
     gulp.run('sass');
+  });
+  gulp.watch('js-concat/libraries/**', function(event) {
+    gulp.run('scripts');
+  });
+  gulp.watch('js-concat/plugins/**', function(event) {
+    gulp.run('scripts');
   });
   gulp.watch('js-concat/**', function(event) {
     gulp.run('scripts');
