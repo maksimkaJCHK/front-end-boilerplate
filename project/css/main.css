@@ -178,26 +178,29 @@ html {
   background: url(../images/bodushadow.png) repeat-y center top; }
 
 #wrapper {
-  min-width: 1024px;
-  max-width: 1280px;
-  margin: 0 auto;
   padding-bottom: 141px; }
   #wrapper:after {
     content: "";
     display: table;
     clear: both; }
 
+.wrapper {
+  min-width: 984px;
+  max-width: 1240px;
+  margin: 0 auto; }
+
 header {
-  height: 70px;
-  padding: 20px 20px 10px 20px;
   background: url(../images/header-fon.png) repeat center top; }
+  header .wrapper {
+    height: 70px;
+    padding-top: 20px;
+    padding-bottom: 10px; }
 
 footer {
   position: relative;
   background: url(../images/footer-fon.png) repeat center top;
-  min-width: 984px;
-  max-width: 1240px;
-  margin: 0 auto;
-  height: 81px;
-  padding: 40px 20px 10px 20px;
   margin-top: -131px; }
+  footer .wrapper {
+    height: 81px;
+    padding-top: 40px;
+    padding-bottom: 10px; }
