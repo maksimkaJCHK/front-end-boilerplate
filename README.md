@@ -5,22 +5,14 @@
 
 Моя структура сотоит из следующих плагинов:
 
-"gulp": "^3.9.0";
-
-"gulp-autoprefixer": "^3.1.1";
-
-"gulp-clean-css": "^2.0.13";
-
-"gulp-concat": "^2.5.2";
-
-"gulp-plumber": "^1.0.1";
-
-"gulp-sass": "^2.3.2";
-
-"gulp-twig": "^0.3.0";
-
-"gulp-uglify": "^1.2.0";
-
-"gulp-watch": "^4.2.4".
+"gulp": "^3.9.0",
+"gulp-autoprefixer": "^3.1.1",
+"gulp-clean-css": "^2.0.13",
+"gulp-concat": "^2.5.2",
+"gulp-plumber": "^1.0.1",
+"gulp-sass": "^2.3.2",
+"gulp-twig": "^0.3.0",
+"gulp-uglify": "^1.2.0",
+"gulp-watch": "^4.2.4"
 
 В последующим их количество может меняться.
