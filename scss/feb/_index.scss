@@ -6,6 +6,7 @@
 html {
 	@extend %htmlBody;
 	font: $font-main;
+	color: $font-main-color;
 	background: $background-html;
 }
 body {
@@ -22,6 +23,7 @@ body {
 	@include pie-clearfix;
 	@if $site-status == limited {
 		@include wrapper-setting-limited;
+		margin: $wrapper-mar;
 	}
 	background: $background-wrapper;
 	@if $footer-bottom == true {
@@ -31,6 +33,8 @@ body {
 @if $site-status == full {
 	.wrapper {
 		@include wrapper-setting-full;
+		margin: $wrapper-mar;
+		padding: $wrapper-pad-top $wrapper-pad-right $wrapper-pad-bottom $wrapper-pad-left;
 	}
 }
 header {

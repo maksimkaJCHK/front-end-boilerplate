@@ -20,7 +20,7 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('project/css'));
 });
 gulp.task('scripts', function() {
-  gulp.src(['js-concat/libraries/*.js', 'js-concat/plugins/*.js', 'js-concat/main-function.js', 'js-concat/main.js'])
+  gulp.src(['js-concat/libraries/_jquery-2.2.4.min.js', 'js-concat/plugins/*.js', 'js-concat/main-function.js', 'js-concat/main.js'])
     .pipe(concat('main.js'))
     .pipe(gulp.dest('project/js'))
     .pipe(uglify())

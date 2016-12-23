@@ -4,7 +4,6 @@ $footer-height-obs: $footer-height - ($footer-pad-top + $footer-pad-bottom);
 	width: $wrapper-width;
 	min-width: $wrapper-min-width;
 	max-width: $wrapper-max-width;
-	margin: $wrapper-mar;
 }
 @mixin footer-setting-limited {
 	@if $wrapper-width != null {
@@ -16,7 +15,6 @@ $footer-height-obs: $footer-height - ($footer-pad-top + $footer-pad-bottom);
 	@if $wrapper-max-width != null {
 		max-width: $wrapper-max-width - ($footer-pad-left + $footer-pad-right);
 	}
-	margin: $wrapper-mar;
 }
 
 @mixin wrapper-setting-full {
@@ -29,5 +27,4 @@ $footer-height-obs: $footer-height - ($footer-pad-top + $footer-pad-bottom);
 	@if $wrapper-max-width != null {
 		max-width: $wrapper-max-width - ($wrapper-pad-left + $wrapper-pad-right);
 	}
-	margin: $wrapper-mar;
 }

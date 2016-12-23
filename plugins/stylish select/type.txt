@@ -1,9 +1,0 @@
-<select name="select" class="styleSelect">
-  <option value="sel-1">Пункт селекта 1</option>
-  <option value="sel-2">Пункт селекта 2</option>
-  <option value="sel-3">Пункт селекта 3</option>
-  <option value="sel-4">Пункт селекта 4</option>
-  <option value="sel-5">Пункт селекта 5</option>
-</select>
-  
-$('.styleSelect').sSelect({ddMaxHeight: '300px'});
