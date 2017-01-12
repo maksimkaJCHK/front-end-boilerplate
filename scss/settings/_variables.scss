@@ -25,6 +25,8 @@ $wrapper-mar: 0 auto;
 //padding-и основных элементов, поскольку в HTML-файле разметка будет меняться, паддинги слева и справа для футера, шапки будут одинаковыми и вообще это логично, если сайт четко делать по сетке
 $wrapper-pad-left: 20px;
 $wrapper-pad-right: $wrapper-pad-left;
+$wrapper-pad-top: 10px;
+$wrapper-pad-bottom: $wrapper-pad-top;
 $header-pad-top: 20px;
 $header-pad-bottom: 10px;
 $header-pad-left: $wrapper-pad-left;
