@@ -2,13 +2,10 @@
   display: block;
   text-decoration: none;
 }
-@mixin size($widthLogo, $heightLogo) {
-  width: $widthLogo;
-  height: $heightLogo;
-}
 @mixin logo-size($widthLogoS, $heightLogoS) {
 	@extend %logo;
-  @include size($widthLogoS, $heightLogoS);
+  width: $widthLogoS;
+  height: $heightLogoS;
 }
 @mixin no-user-select {
   -webkit-user-select: none;
@@ -20,6 +17,38 @@
   -moz-animation: $animation;
   -webkit-animation: $animation;
   animation: $animation;
+}
+@mixin opacity($value){
+  $IEValue: $value*100;
+  opacity: $value;
+  filter: alpha(opacity=$IEValue);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
+}
+@mixin pie-clearfix {
+  &:after {
+    content: " ";
+    display: table;
+    clear: both;
+  }
+}
+@mixin clearfix {
+  &:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+@mixin micro-clearfix {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
 }
 @mixin keyframes($name) {
   @-webkit-keyframes #{$name} {

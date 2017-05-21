@@ -1,0 +1,26 @@
+%logo {
+  @include logo;
+}
+%input {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+}
+%noUserSelect {
+  @include no-user-select;
+}
+%anim {
+	transition-delay: 0s;
+	transition-duration: .3s;
+	transition-timing-function: ease;
+	transition-property: margin, padding, width, height, font-size;
+}
+%pie-clearfix {
+	@include pie-clearfix;
+}
+%clearfix {
+	@include clearfix;
+}
+%micro-clearfix {
+	@include micro-clearfix;
+}

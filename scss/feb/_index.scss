@@ -58,6 +58,7 @@ footer {
 	@if $site-status == limited {
 		@include footer-setting-limited;
 		height: $footer-height-obs;
+		margin: 0 auto;
 		padding: $footer-pad-top $footer-pad-right $footer-pad-bottom $footer-pad-left;
 	}
 	@if $footer-bottom == true {

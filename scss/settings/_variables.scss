@@ -1,5 +1,5 @@
 // По сути ругулирую фоны, будут ли они ораничены или будут на все страницу, в html появится .wrapper. Доступно full и limited
-$site-status: full;
+$site-status: limited;
 $footer-bottom: true;
 // Дополнительное пространство когда прибиваем футер к низу
 $content-dist-indent: 10px;
@@ -26,7 +26,7 @@ $wrapper-mar: 0 auto;
 $wrapper-pad-left: 20px;
 $wrapper-pad-right: $wrapper-pad-left;
 $wrapper-pad-top: 10px;
-$wrapper-pad-bottom: $wrapper-pad-top;
+$wrapper-pad-bottom: 10px;
 $header-pad-top: 20px;
 $header-pad-bottom: 10px;
 $header-pad-left: $wrapper-pad-left;
