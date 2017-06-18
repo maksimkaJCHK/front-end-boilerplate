@@ -20,7 +20,7 @@ body {
 	background: $background-main;
 }
 #wrapper {
-	@include pie-clearfix;
+	@extend %pie-clearfix;
 	@if $site-status == limited {
 		@include wrapper-setting-limited;
 		margin: $wrapper-mar;

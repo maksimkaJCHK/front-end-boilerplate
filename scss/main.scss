@@ -1,5 +1,6 @@
 @import "_fonts.scss";
 @import "base/_normalize.scss";
+@import "services/_easing.scss";
 @import "services/_mixins.scss";
 @import "settings/_variables.scss";
 @import "services/_theme.scss";
@@ -9,3 +10,4 @@
 @import "pages/_index.scss";
 @import "components/_index.scss";
 @import "plugins/_index.scss";
+@import "services/_media.scss";

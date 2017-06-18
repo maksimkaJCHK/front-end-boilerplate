@@ -4,12 +4,12 @@ $footer-bottom: true;
 // Дополнительное пространство когда прибиваем футер к низу
 $content-dist-indent: 10px;
 //Фоны нашего сайта, в дальнейшем я сделаю файл theme.scss и вынесу туда наши background-ы
-$background-html: url(../images/fon.jpg) repeat left top;
+$background-html: url(encodeImg/fon.jpg) repeat left top;
 $background-body: null;
-$background-main: url(../images/bodushadow.png) repeat-y center top;
+$background-main: url(encodeImg/bodushadow.png) repeat-y center top;
 $background-wrapper: null;
-$background-header: url(../images/header-fon.png) repeat center top;
-$background-footer: url(../images/footer-fon.png) repeat center top;
+$background-header: url(encodeImg/header-fon.png) repeat center top;
+$background-footer: url(encodeImg/footer-fon.png) repeat center top;
 
 //Размеры наших основных блоков
 $main-min-height: 100%;

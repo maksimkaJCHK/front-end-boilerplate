@@ -1,0 +1,74 @@
+$jcControlWidth: 31px;
+$jcControlHeight: 33px;
+$jcControlPosTop: 90px;
+$jcControlImg: "../images/jcarousel/arrow.png";
+$jcControlPrev: left top;
+$jcControlNext: right top;
+$jcControlPrevHover: left -35px;
+$jcControlNextHover: right -35px;
+$jcControlPrevActive: left -34px;
+$jcControlNextActive: right -34px;
+
+$jsControlPrevPos: -50px;
+$jsControlNextPos: -50px;
+
+$jsItemWidth: 200px;
+$jsItemMargin: 0 20px 0 0;
+
+$jsWrapWidth: 420px;
+$jsWrapHeight: 200px;
+.jcarousel-wrapper {
+  margin: 20px auto;
+  position: relative;
+  width: $jsWrapWidth;
+  height: $jsWrapHeight;
+}
+.jcarousel {
+  position: relative;
+  overflow: hidden;
+  ul {
+    width: 30000px;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    float: left;
+    width: $jsItemWidth;
+    margin: $jsItemMargin;
+  }
+  &-prev,
+  &-next {
+    @extend %noUserSelect;
+    @include logo-size($jcControlWidth, $jcControlHeight);
+    cursor: pointer;
+    position: absolute;
+    top: $jcControlPosTop;
+    background-image: url($jcControlImg);
+    background-repeat: no-repeat;
+    &.inactive {
+      display: none;
+    }
+  }
+  &-prev {
+    left: $jsControlPrevPos;
+    background-position: $jcControlPrev;
+    &:hover {
+      background-position: $jcControlPrevHover;
+    }
+    &:active {
+      background-position: $jcControlPrevActive;
+    }
+  }
+  &-next {
+    right: $jsControlNextPos;
+    background-position: $jcControlNext;
+    &:hover {
+      background-position: $jcControlNextHover;
+    }
+    &:active {
+      background-position: $jcControlNextActive;
+    }
+  }
+}

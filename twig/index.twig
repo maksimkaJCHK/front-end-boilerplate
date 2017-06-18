@@ -2,7 +2,15 @@
 
 {% block afterHeader %}
   <main>
-    
+    {#
+      {% import "macros/cat-l-item.twig" as catList %}
+      {{ 
+        catList.catList(
+          'pic-1.png', 
+          'Какой-то заголовок'
+        )
+      }}
+    #}
   </main>
 {% endblock afterHeader %}
 
