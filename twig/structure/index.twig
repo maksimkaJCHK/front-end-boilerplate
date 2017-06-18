@@ -5,9 +5,9 @@
 {% endblock viewPort %}
 
 {% block header %}
-Содержимое блока header
+  {% include '../layout/header.twig' with vars only %}
 {% endblock header %}
 
 {% block footer %}
-Содержимое блока footer
+  {% include '../layout/footer.twig' with vars only %}
 {% endblock footer %}
