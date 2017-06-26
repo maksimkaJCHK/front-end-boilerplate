@@ -106,7 +106,13 @@ gulp.task('default', function() {
   gulp.watch('scss/plugins/**', function(event) {
     gulp.run('sass');
   });
-
+  gulp.watch('scss/media/**', function(event) {
+    gulp.run('sass');
+  });
+  gulp.watch('scss/media/grid/**', function(event) {
+    gulp.run('sass');
+  });
+  
   gulp.watch('js-concat/ES6/**', function(event) {
     gulp.run('js-compile');
   });
