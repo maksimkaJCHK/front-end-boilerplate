@@ -1,0 +1,21 @@
+$fullScreen: 1920px;
+$mediumScreen: 1280px;
+$desctopScreen: 1024px;
+$desctopMedium: 768px;
+$mobileScreen: 450px;
+
+@media screen and (max-width: $fullScreen) {
+  @import "_full_screen.scss";
+}
+@media screen and (max-width: $mediumScreen) {
+  @import "_medium_screen.scss";
+}
+@media screen and (max-width: $desctopScreen) {
+  @import "_desctop.scss";
+}
+@media screen and (max-width: $desctopMedium) {
+  @import "_desctop_medium.scss";
+}
+@media screen and (max-width: $mobileScreen) {
+  @import "_mobile.scss";
+}
