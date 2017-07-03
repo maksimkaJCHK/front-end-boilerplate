@@ -14,7 +14,7 @@ var base64 = require('gulp-base64');
 var babel = require('gulp-babel');
 
 gulp.task('sass', function () {
-  gulp.src('scss/main.scss')
+  gulp.src('styles/main.scss')
     .pipe(plumber())
     .pipe(sass({errLogToConsole: true}))
     .pipe(autoprefixer({
@@ -57,7 +57,7 @@ gulp.task('js', function() {
 });
 gulp.task('twig', function () {
   'use strict';
-  gulp.src('twig/index.twig')
+  gulp.src('templates/pages/index.twig')
   .pipe(twig({
     data: {
       title: 'Главная страница'
@@ -79,37 +79,37 @@ gulp.task('default', function() {
   gulp.run('js');
   gulp.run('twig');
   
-  gulp.watch('scss/**', function(event) {
+  gulp.watch('styles/**', function(event) {
     gulp.run('sass');
   });
-  gulp.watch('scss/base/**', function(event) {
+  gulp.watch('styles/base/**', function(event) {
     gulp.run('sass');
   });
-  gulp.watch('scss/services/**', function(event) {
+  gulp.watch('styles/services/**', function(event) {
     gulp.run('sass');
   });
-  gulp.watch('scss/settings/**', function(event) {
+  gulp.watch('styles/settings/**', function(event) {
     gulp.run('sass');
   });
-  gulp.watch('scss/feb/**', function(event) {
+  gulp.watch('styles/feb/**', function(event) {
     gulp.run('sass');
   });
-  gulp.watch('scss/layout/**', function(event) {
+  gulp.watch('styles/layout/**', function(event) {
     gulp.run('sass');
   });
-  gulp.watch('scss/pages/**', function(event) {
+  gulp.watch('styles/pages/**', function(event) {
     gulp.run('sass');
   });
-  gulp.watch('scss/components/**', function(event) {
+  gulp.watch('styles/components/**', function(event) {
     gulp.run('sass');
   });
-  gulp.watch('scss/plugins/**', function(event) {
+  gulp.watch('styles/plugins/**', function(event) {
     gulp.run('sass');
   });
-  gulp.watch('scss/media/**', function(event) {
+  gulp.watch('styles/media/**', function(event) {
     gulp.run('sass');
   });
-  gulp.watch('scss/media/grid/**', function(event) {
+  gulp.watch('styles/media/grid/**', function(event) {
     gulp.run('sass');
   });
   
@@ -127,22 +127,22 @@ gulp.task('default', function() {
     gulp.run('js');
   });
 
-  gulp.watch('twig/**', function(event) {
+  gulp.watch('templates/pages/**', function(event) {
     gulp.run('twig');
   });
-  gulp.watch('twig/performance/**', function(event) {
+  gulp.watch('templates/performance/**', function(event) {
     gulp.run('twig');
   });
-  gulp.watch('twig/structure/**', function(event) {
+  gulp.watch('templates/structure/**', function(event) {
     gulp.run('twig');
   });
-  gulp.watch('twig/layout/**', function(event) {
+  gulp.watch('templates/layout/**', function(event) {
     gulp.run('twig');
   });
-  gulp.watch('twig/components/**', function(event) {
+  gulp.watch('templates/components/**', function(event) {
     gulp.run('twig');
   });
-  gulp.watch('twig/macros/**', function(event) {
+  gulp.watch('templates/macros/**', function(event) {
     gulp.run('twig');
   });
 })
