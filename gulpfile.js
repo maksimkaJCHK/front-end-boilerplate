@@ -12,7 +12,14 @@ var compress = require('gulp-yuicompressor');
 var prettify = require('gulp-jsbeautifier');
 var base64 = require('gulp-base64');
 var babel = require('gulp-babel');
+var connect = require('gulp-connect');
 
+gulp.task('connect', function() {
+  connect.server({
+    root: 'public',
+    livereload: true
+  });
+});
 gulp.task('styleCompile', function () {
   gulp.src('styles/main.scss')
     .pipe(plumber())
@@ -30,7 +37,8 @@ gulp.task('styleCompile', function () {
     }))
     .pipe(gulp.dest('public/css'))
     .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(gulp.dest('public/css/min'));
+    .pipe(gulp.dest('public/css/min'))
+    .pipe(connect.reload());
 });
 gulp.task('js-compile', function() {
   gulp.src('js-concat/ES6/*.js')
@@ -38,7 +46,8 @@ gulp.task('js-compile', function() {
     .pipe(babel({
       presets: ['es2015', 'react']
     }))
-    .pipe(gulp.dest('js-concat'));
+    .pipe(gulp.dest('js-concat'))
+    .pipe(connect.reload());
 });
 gulp.task('js', function() {
   gulp.src([
@@ -47,6 +56,7 @@ gulp.task('js', function() {
     'js-concat/main-function.js',
     'js-concat/main.js'
   ])
+  .pipe(plumber())
   .pipe(concat('main.js'))
   .pipe(gulp.dest('public/js'))
   .pipe(uglify())
@@ -54,6 +64,7 @@ gulp.task('js', function() {
     type: 'js'
   }))
   .pipe(gulp.dest('public/js/min'))
+  .pipe(connect.reload());
 });
 gulp.task('templateCompile', function () {
   'use strict';
@@ -64,7 +75,8 @@ gulp.task('templateCompile', function () {
     }
   }))
   .pipe(prettify({indent_size: 2}))
-  .pipe(gulp.dest('public/'));
+  .pipe(gulp.dest('public/'))
+  .pipe(connect.reload());
 });
 
 gulp.task('image', function () {
@@ -78,6 +90,7 @@ gulp.task('default', function() {
   gulp.run('js-compile');
   gulp.run('js');
   gulp.run('templateCompile');
+  gulp.run('connect');
   
   gulp.watch('styles/**', function(event) {
     gulp.run('styleCompile');

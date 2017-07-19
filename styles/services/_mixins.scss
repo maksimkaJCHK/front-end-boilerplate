@@ -50,6 +50,18 @@
     clear: both;
   }
 }
+@mixin grab {
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+@mixin scrollToch {
+  touch-action: auto;
+  overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
 @mixin keyframes($name) {
   @-webkit-keyframes #{$name} {
     @content; 
