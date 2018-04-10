@@ -21,11 +21,11 @@ gulp.task('connect', function() {
   });
 });
 gulp.task('styleCompile', function () {
-  gulp.src('styles/main.scss')
+  gulp.src('front-end/styles/main.scss')
     .pipe(plumber())
     .pipe(sass({errLogToConsole: true}))
     .pipe(autoprefixer({
-        "browsers": ["last 10 versions", "ie 8", "ie 7"],
+        "browsers": ["last 5 versions"],
         "cascade": true
     }))
     .pipe(base64({
@@ -41,7 +41,7 @@ gulp.task('styleCompile', function () {
     .pipe(connect.reload());
 });
 gulp.task('js-compile', function() {
-  gulp.src('js-concat/ES6/*.js')
+  gulp.src('front-end/js-concat/ES6/*.js')
     .pipe(plumber())
     .pipe(babel({
       presets: ['es2015', 'react']
@@ -51,10 +51,10 @@ gulp.task('js-compile', function() {
 });
 gulp.task('js', function() {
   gulp.src([
-    'js-concat/libraries/_jquery-2.2.4.min.js',
-    'js-concat/plugins/*.js',
-    'js-concat/main-function.js',
-    'js-concat/main.js'
+    'front-end/js-concat/libraries/_jquery-2.2.4.min.js',
+    'front-end/js-concat/plugins/*.js',
+    'front-end/js-concat/main-function.js',
+    'front-end/js-concat/main.js'
   ])
   .pipe(plumber())
   .pipe(concat('main.js'))
@@ -68,7 +68,7 @@ gulp.task('js', function() {
 });
 gulp.task('templateCompile', function () {
   'use strict';
-  gulp.src('templates/pages/index.twig')
+  gulp.src('front-end/templates/pages/index.twig')
   .pipe(twig({
     data: {
       title: 'Главная страница'
@@ -80,7 +80,7 @@ gulp.task('templateCompile', function () {
 });
 
 gulp.task('image', function () {
-  gulp.src(['public/images/*', 'public/images/*/*'])
+  gulp.src(['front-end/public/images/*', 'front-end/public/images/*/*'])
   .pipe(imagemin())
   .pipe(gulp.dest('public/images_compresed'))
 });
@@ -93,51 +93,51 @@ gulp.task('default', function() {
   gulp.run('connect');
   
   gulp.watch('styles/**', function(event) {
-    gulp.run('styleCompile');
+    gulp.run('front-end/styleCompile');
   });
   gulp.watch('styles/base/**', function(event) {
-    gulp.run('styleCompile');
+    gulp.run('front-end/styleCompile');
   });
   gulp.watch('styles/services/**', function(event) {
-    gulp.run('styleCompile');
+    gulp.run('front-end/styleCompile');
   });
   gulp.watch('styles/settings/**', function(event) {
-    gulp.run('styleCompile');
+    gulp.run('front-end/styleCompile');
   });
   gulp.watch('styles/feb/**', function(event) {
-    gulp.run('styleCompile');
+    gulp.run('front-end/styleCompile');
   });
   gulp.watch('styles/layout/**', function(event) {
-    gulp.run('styleCompile');
+    gulp.run('front-end/styleCompile');
   });
   gulp.watch('styles/pages/**', function(event) {
-    gulp.run('styleCompile');
+    gulp.run('front-end/styleCompile');
   });
   gulp.watch('styles/components/**', function(event) {
-    gulp.run('styleCompile');
+    gulp.run('front-end/styleCompile');
   });
   gulp.watch('styles/plugins/**', function(event) {
-    gulp.run('styleCompile');
+    gulp.run('front-end/styleCompile');
   });
   gulp.watch('styles/media/**', function(event) {
-    gulp.run('styleCompile');
+    gulp.run('front-end/styleCompile');
   });
   gulp.watch('styles/media/grid/**', function(event) {
-    gulp.run('styleCompile');
+    gulp.run('front-end/styleCompile');
   });
   
   gulp.watch('js-concat/ES6/**', function(event) {
-    gulp.run('js-compile');
+    gulp.run('front-end/js-compile');
   });
 
   gulp.watch('js-concat/libraries/**', function(event) {
-    gulp.run('js');
+    gulp.run('front-end/js');
   });
   gulp.watch('js-concat/plugins/**', function(event) {
-    gulp.run('js');
+    gulp.run('front-end/js');
   });
   gulp.watch('js-concat/**', function(event) {
-    gulp.run('js');
+    gulp.run('front-end/js');
   });
 
   gulp.watch('templates/pages/**', function(event) {
