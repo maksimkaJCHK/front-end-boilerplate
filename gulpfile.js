@@ -1,203 +1,234 @@
-﻿const gulp = require('gulp');  
-const concat = require('gulp-concat');
-const watch = require('gulp-watch'); 
-const plumber = require('gulp-plumber');
+const  { src, dest, parallel, watch, series } = require('gulp');
+const pug = require('gulp-pug');
 const sass = require('gulp-sass');
-const uglify = require('gulp-uglify');
-const cleanCSS  = require('gulp-clean-css');
-const autoprefixer = require('gulp-autoprefixer');
-const twig = require('gulp-twig');
-const imagemin = require('gulp-imagemin');
-const compress = require('gulp-yuicompressor');
-const prettify = require('gulp-jsbeautifier');
-const base64 = require('gulp-base64');
-const babel = require('gulp-babel');
-const connect = require('gulp-connect');
 const gcmq = require('gulp-group-css-media-queries');
-
-const eslint = require('gulp-eslint');
-const htmlhint = require("gulp-htmlhint");
-
+const cleanCSS = require('gulp-clean-css');
+const plumber = require('gulp-plumber');
+const autoprefixer = require('gulp-autoprefixer');
+const base64 = require('gulp-css-base64');
+const sourcemaps = require('gulp-sourcemaps');
+const  connect = require('gulp-connect');
+const htmlv = require('gulp-html-validator');
 const zip = require('gulp-zip');
+const imagemin = require('gulp-imagemin');
+const webpack = require('webpack-stream');
+const TerserPlugin = require('terser-webpack-plugin');
+sass.compiler = require('node-sass');
 
-gulp.task('connect', function() {
+// Валидация
+function validate()  {
+  return src('./public/*.html')
+    .pipe(htmlv())
+    .pipe(dest('./validateResult'));
+}
+
+// JS
+
+let webpackConfig = {
+  output: {
+    filename: 'main.js'
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin({
+      cache: true,
+      extractComments: true,
+      terserOptions: {
+        output: {
+          comments: false,
+        },
+        extractComments: 'all',
+        compress: {
+          drop_console: true,
+        },
+      },
+    })],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js|.jsx?$/,
+        exclude: /(node_modules)/,
+        loaders: ["babel-loader"]
+      }, {
+        test: /\.css$/,
+        exclude: /(node_modules)/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: "postcss-loader",
+            options: {
+              config: {path: 'postcss.config.js'},
+            }
+          }
+        ]
+      }, {
+        test: /\.scss$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {config: {
+              path: './postcss.config.js'
+            }}
+          },
+          "sass-loader" 
+        ]
+      }
+    ]
+  },
+  mode: 'production',
+};
+
+function scripts() {
+  return src('./src/scripts/main.js')
+  .pipe(webpack(webpackConfig))
+  .pipe(dest('./public/js'))
+  .pipe(connect.reload());
+}
+
+// Сжимаю картинки
+function image() {
+  return src('./public/images/*')
+    .pipe(imagemin(
+      [
+        imagemin.gifsicle({interlaced: true}),
+        imagemin.jpegtran({progressive: true}),
+        imagemin.optipng({optimizationLevel: 5}),
+        imagemin.svgo({
+          plugins: [
+            {removeViewBox: false},
+            {cleanupIDs: false}
+          ]
+        })
+      ]
+    ))
+    .pipe(dest('./public/images_min'))
+};
+// Созжаю архивы
+function client() {
+  return src([
+    'public/**',
+  ])
+  .pipe(zip('mailProject.zip'))
+  .pipe(dest('archive'))
+};
+
+function project() {
+  return src([
+      '**',
+      '.browserslistrc',
+      '!node_modules', '!node_modules/**',
+    ])
+    .pipe(zip('project.zip'))
+    .pipe(dest('./archive'));
+};
+
+// Сервер
+function serveTask(done) {
   connect.server({
     root: 'public',
-    livereload: true
+    livereload: true,
+    port: 8080,
+  }, function () {
+    this.server.on('close', done)
   });
-});
-gulp.task('styleCompile', function () {
-  gulp.src('front-end/styles/main.scss')
-    .pipe(plumber())
-    .pipe(sass({errLogToConsole: true}))
-    .pipe(gcmq())
-    .pipe(autoprefixer({
-        "browsers": ["last 5 versions"],
-        "cascade": true
-    }))
-    .pipe(base64({
-      baseDir: 'front-end/',
-      extensions: ['svg', 'png', 'jpg'],
-      maxImageSize: 400*1024,
-      deleteAfterEncoding: false,
-      debug: false
-    }))
-    .pipe(gulp.dest('public/css'))
-    .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(gulp.dest('public/css/min'))
-    .pipe(connect.reload());
-});
-gulp.task('js-compile', function() {
-  gulp.src('front-end/js-concat/ES6/*.js')
-    .pipe(plumber())
-    .pipe(babel({
-      presets: ['es2015', 'react']
-    }))
-    .pipe(gulp.dest('js-concat'))
-    .pipe(connect.reload());
-});
-gulp.task('js', function() {
-  gulp.src([
-    'front-end/js-concat/libraries/_jquery-2.2.4.min.js',
-    'front-end/js-concat/plugins/*.js',
-    'front-end/js-concat/main-function.js',
-    'front-end/js-concat/main.js'
-  ])
-  .pipe(plumber())
-  .pipe(concat('main.js'))
-  .pipe(gulp.dest('public/js'))
-  .pipe(uglify())
-  .pipe(compress({
-    type: 'js'
-  }))
-  .pipe(gulp.dest('public/js/min'))
-  .pipe(connect.reload());
-});
-gulp.task('templateCompile', function () {
-  'use strict';
-  gulp.src('front-end/templates/pages/index.twig')
-  .pipe(twig({
-    data: {
+} 
+
+// Компилирую шаблоны
+var templateObj = {
+  pretty: '  ',
+  cache: true,
+}
+function template() {
+  return src('./src/templates/pages/index.pug')
+  .pipe(pug({
+    ...templateObj,
+    locals: {
       title: 'Главная страница'
     }
   }))
-  .pipe(prettify({indent_size: 2}))
-  .pipe(gulp.dest('public/'))
+  .pipe(dest('./public'))
   .pipe(connect.reload());
-});
+}
 
-gulp.task('lint', function () {
-  gulp.src(['public/js/main.js'])
-  .pipe(eslint({
-    rules: {
-      'my-custom-rule': 1,
-      'strict': 2
-    },
-    globals: [
-      'jQuery',
-      '$'
-    ],
-    envs: [
-      'browser'
-    ]
+// Компилирую стили
+function style() {
+  return src('./src/styles/main.scss')
+  .pipe(sass().on('error', sass.logError))
+  .pipe(autoprefixer({
+    cascade: false,
+    overrideBrowserslist: ['last 2 versions']
   }))
-  .pipe(eslint.formatEach('compact', process.stderr));
-});
+  .pipe(base64({
+    baseDir: 'src',
+    maxWeightResource: 32768,
+    extensionsAllowed: ['.gif', '.jpg', '.png']
+  }))
+  .pipe(gcmq())
+  .pipe(dest('./public/css'))
+  .pipe(cleanCSS({
+    level: 1
+  }))
+  .pipe(dest('./public/css/min'))
+  .pipe(connect.reload());
+}
 
-gulp.task('html', function () {
-  gulp.src("public/*.html")
-    .pipe(htmlhint())
-    .pipe(htmlhint.reporter())
-});
+function styleDebug() {
+  return src('./src/styles/main.scss')
+  .pipe(sourcemaps.init())
+  .pipe(sass().on('error', sass.logError))
+  .pipe(autoprefixer({
+    cascade: false,
+    overrideBrowserslist: ['last 2 versions']
+  }))
+  .pipe(base64({
+    baseDir: 'src',
+    maxWeightResource: 32768,
+    extensionsAllowed: ['.gif', '.jpg', '.png']
+  }))
+  //.pipe(gcmq())
+  .pipe(sourcemaps.write('./', {
+    includeContent: true,
+    sourceRoot: '../../src/styles/',
+  }))
+  .pipe(dest('./public/css'))
+  .pipe(cleanCSS({
+    level: 1
+  }))
+  .pipe(dest('./public/css/min'))
+  .pipe(connect.reload());
+}
 
-gulp.task('arhive', function () {
-  gulp.src(['public/*', 'public/*/*', 'public/*/*/*'])
-    .pipe(zip('project.zip'))
-    .pipe(gulp.dest('arhive'))
-});
 
-gulp.task('image', function () {
-  gulp.src(['front-end/public/images/*', 'front-end/public/images/*/*'])
-    .pipe(imagemin())
-    .pipe(gulp.dest('public/images_compresed'))
-});
+// Просмотр файлов
+function watcher() {
+  watch('./src/templates/*/*.pug', template);
+  watch('./src/styles/*/*.scss', style);
+  watch('./src/scripts/*.js', scripts);
+}
 
-gulp.task('test', function () {
-  gulp.run('lint');
-  gulp.run('html');
-});
+// Задачи для сборки
+exports.template = template;
+exports.style = style;
+exports.scripts = scripts;
+// Для отладки стилей
+exports.styleDebug = styleDebug;
 
-gulp.task('default', function() {
-  gulp.run('styleCompile');
-  gulp.run('js-compile');
-  gulp.run('js');
-  gulp.run('templateCompile');
-  gulp.run('connect');
-  
-  gulp.watch('front-end/styles/**', function(event) {
-    gulp.run('styleCompile');
-  });
-  gulp.watch('front-end/styles/base/**', function(event) {
-    gulp.run('styleCompile');
-  });
-  gulp.watch('front-end/styles/services/**', function(event) {
-    gulp.run('styleCompile');
-  });
-  gulp.watch('front-end/styles/settings/**', function(event) {
-    gulp.run('styleCompile');
-  });
-  gulp.watch('front-end/styles/feb/**', function(event) {
-    gulp.run('styleCompile');
-  });
-  gulp.watch('front-end/styles/layout/**', function(event) {
-    gulp.run('styleCompile');
-  });
-  gulp.watch('front-end/styles/pages/**', function(event) {
-    gulp.run('styleCompile');
-  });
-  gulp.watch('front-end/styles/components/**', function(event) {
-    gulp.run('styleCompile');
-  });
-  gulp.watch('front-end/styles/plugins/**', function(event) {
-    gulp.run('styleCompile');
-  });
-  gulp.watch('front-end/styles/media/**', function(event) {
-    gulp.run('styleCompile');
-  });
-  gulp.watch('front-end/styles/media/grid/**', function(event) {
-    gulp.run('styleCompile');
-  });
-  
-  gulp.watch('front-end/js-concat/ES6/**', function(event) {
-    gulp.run('js-compile');
-  });
+// Минимизирую картинки
+exports.image = image;
 
-  gulp.watch('front-end/js-concat/libraries/**', function(event) {
-    gulp.run('js');
-  });
-  gulp.watch('front-end/js-concat/plugins/**', function(event) {
-    gulp.run('js');
-  });
-  gulp.watch('front-end/js-concat/**', function(event) {
-    gulp.run('js');
-  });
+// Общая сборка
+build = parallel(template, style, scripts);
+exports.build = build;
 
-  gulp.watch('front-end/templates/pages/**', function(event) {
-    gulp.run('templateCompile');
-  });
-  gulp.watch('front-end/templates/performance/**', function(event) {
-    gulp.run('templateCompile');
-  });
-  gulp.watch('front-end/templates/structure/**', function(event) {
-    gulp.run('templateCompile');
-  });
-  gulp.watch('front-end/templates/layout/**', function(event) {
-    gulp.run('templateCompile');
-  });
-  gulp.watch('front-end/templates/components/**', function(event) {
-    gulp.run('templateCompile');
-  });
-  gulp.watch('front-end/templates/macros/**', function(event) {
-    gulp.run('templateCompile');
-  });
-});
+// Служебные функции
+exports.project = project;
+exports.client = client;
+
+//Валидация
+exports.validate = validate;
+
+exports.default = series(build, parallel(watcher, serveTask));

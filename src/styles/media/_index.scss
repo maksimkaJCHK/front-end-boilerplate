@@ -1,0 +1,28 @@
+$fullScreen: 1920px;
+$mediumScreen: 1280px;
+$tabletScreen: 1024px;
+$tabletMedium: 768px;
+$mobileScreen: 450px;
+
+%col,
+.col {
+  box-sizing: border-box;
+}
+@import "./grid/_grid_12.scss";
+@import "./grid/_grid_16.scss";
+@import "./grid/_grid_24.scss";
+@media screen and (max-width: $fullScreen) {
+  @import "_full_screen.scss";  
+}
+@media screen and (max-width: $mediumScreen) {
+  @import "_medium_screen.scss";
+}
+@media screen and (max-width: $tabletScreen) {
+  @import "_tablet_screen.scss";
+}
+@media screen and (max-width: $tabletMedium) {
+  @import "_tablet_medium_screen.scss";
+}
+@media screen and (max-width: $mobileScreen) {
+  @import "_mobile_screen.scss";
+}

@@ -192,17 +192,31 @@ input::-moz-focus-inner {
 
 input[type="checkbox"],
 input[type="radio"] {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   height: auto;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"]::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 input[type="search"] {
   -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
 
@@ -318,6 +332,7 @@ footer {
 }
 
 .col {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 

@@ -1,0 +1,44 @@
+// По сути ругулирую фоны, будут ли они ораничены или будут на все страницу, в html появится .wrapper. Доступно full и limited
+$site-status: limited;
+$footer-bottom: true;
+// Дополнительное пространство когда прибиваем футер к низу
+$content-dist-indent: 10px;
+//Фоны нашего сайта, в дальнейшем я сделаю файл theme.scss и вынесу туда наши background-ы
+$background-html: url(/encodeImg/fon.jpg) repeat left top;
+$background-body: null;
+$background-main: url(/encodeImg/bodushadow.png) repeat-y center top;
+$background-wrapper: null;
+$background-header: url(/encodeImg/header-fon.png) repeat center top;
+$background-footer: url(/encodeImg/footer-fon.png) repeat center top;
+
+//Размеры наших основных блоков
+$main-min-height: 100%;
+$main-width: null;
+$wrapper-width: null;
+$wrapper-min-width: 1024px;
+$wrapper-max-width: 1280px;
+$header-height: 100px;
+$footer-height: 131px;
+//margins основных элементов
+$main-mar: null;
+$wrapper-mar: 0 auto;
+//padding-и основных элементов, поскольку в HTML-файле разметка будет меняться, паддинги слева и справа для футера, шапки будут одинаковыми и вообще это логично, если сайт четко делать по сетке
+$wrapper-pad-left: 20px;
+$wrapper-pad-right: $wrapper-pad-left;
+$wrapper-pad-top: 10px;
+$wrapper-pad-bottom: 10px;
+$header-pad-top: 20px;
+$header-pad-bottom: 10px;
+$header-pad-left: $wrapper-pad-left;
+$header-pad-right: $wrapper-pad-right;
+$footer-pad-top: 40px;
+$footer-pad-bottom: 10px;
+$footer-pad-left: $wrapper-pad-left;
+$footer-pad-right: $wrapper-pad-right;
+//Основные шрифты сайта
+$font-main-color: #000;
+$font-main-weight: null;
+$font-main-style: null;
+$font-main-size: 12px;
+$font-main-line-height: 120%;
+$font-main-family: Tahoma, "Geneva CY", sans-serif;
