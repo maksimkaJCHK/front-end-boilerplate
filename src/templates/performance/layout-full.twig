@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>{{title}}</title>
+    {% block viewPort %}
+      <meta name="viewport" content="width=device-width initial-scale=1.0">
+    {% endblock viewPort %}
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div id="main">
+      <div id="wrapper">
+        <header>
+          <div class="wrapper">
+            {% block header %}{% endblock header %}
+          </div>
+        </header>
+      {% block afterHeader %}{% endblock afterHeader %}
+      </div>
+    </div>
+    <footer>
+      <div class="wrapper">
+    {% block footer %}{% endblock footer %}
+      </div>
+    </footer>
+    {% block afterFooter %}{% endblock afterFooter %}
+
+    {% block pagePopup %}{% endblock pagePopup %}
+
+    {% block script %}
+      <script src="js/main.js"></script>
+    {% endblock script %}
+
+    {% block pageScript %}{% endblock pageScript %}
+  </body>
+</html>

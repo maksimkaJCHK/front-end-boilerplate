@@ -1,9 +1,9 @@
 const  { src, dest, parallel, watch, series } = require('gulp');
-const pug = require('gulp-pug');
+const twig = require('gulp-twig');
+const beautify = require('gulp-beautify');
 const sass = require('gulp-sass');
 const gcmq = require('gulp-group-css-media-queries');
 const cleanCSS = require('gulp-clean-css');
-const plumber = require('gulp-plumber');
 const autoprefixer = require('gulp-autoprefixer');
 const base64 = require('gulp-css-base64');
 const sourcemaps = require('gulp-sourcemaps');
@@ -74,7 +74,7 @@ let webpackConfig = {
               path: './postcss.config.js'
             }}
           },
-          "sass-loader" 
+          "sass-loader"
         ]
       }
     ]
@@ -135,23 +135,20 @@ function serveTask(done) {
   }, function () {
     this.server.on('close', done)
   });
-} 
+}
 
 // Компилирую шаблоны
-var templateObj = {
-  pretty: '  ',
-  cache: true,
-}
+
 function template() {
-  return src('./src/templates/pages/index.pug')
-  .pipe(pug({
-    ...templateObj,
-    locals: {
-      title: 'Главная страница'
-    }
-  }))
-  .pipe(dest('./public'))
-  .pipe(connect.reload());
+  return src('./src/templates/pages/index.twig')
+    .pipe(twig({
+      data: {
+        title: 'Главная страница',
+      }
+    }))
+    .pipe(beautify.html({ indent_size: 2, "max_preserve_newlines": 0 }))
+    .pipe(dest('./public'))
+    .pipe(connect.reload());
 }
 
 // Компилирую стили
@@ -205,7 +202,7 @@ function styleDebug() {
 
 // Просмотр файлов
 function watcher() {
-  watch('./src/templates/*/*.pug', template);
+  watch('./src/templates/*/*.twig', template);
   watch('./src/styles/*/*.scss', style);
   watch('./src/scripts/*.js', scripts);
 }
