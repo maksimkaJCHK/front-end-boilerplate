@@ -76,6 +76,17 @@ let webpackConfig = {
           },
           "sass-loader"
         ]
+      }, {
+        test: /\.(png|jpg|gif|svg)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+              esModule: false,
+            },
+          },
+        ],
       }
     ]
   },
@@ -107,7 +118,7 @@ function image() {
     ))
     .pipe(dest('./public/images_min'))
 };
-// Созжаю архивы
+// Созzдаю архивы
 function client() {
   return src([
     'public/**',
@@ -119,7 +130,6 @@ function client() {
 function project() {
   return src([
       '**',
-      '.browserslistrc',
       '!node_modules', '!node_modules/**',
     ])
     .pipe(zip('project.zip'))
