@@ -1,10 +1,5 @@
 const  { src, dest, parallel, watch, series } = require('gulp');
 
-const connect = require('gulp-connect');
-
-const webpack = require('webpack-stream');
-const TerserPlugin = require('terser-webpack-plugin');
-
 const requireDir = require('require-dir');
 const tasks = requireDir('./tasks');
 const templates = tasks.templatesTask.template;
@@ -15,92 +10,21 @@ const image = tasks.imagesTask.image;
 const client = tasks.archivesTask.client;
 const project = tasks.archivesTask.project;
 const validate = tasks.validateTask.validate;
-
-// JS
-
-let webpackConfig = {
-  output: {
-    filename: 'main.js'
-  },
-  optimization: {
-    minimize: true,
-    // minimizer: [new TerserPlugin({
-    //   cache: true,
-    //   extractComments: true,
-    //   terserOptions: {
-    //     output: {
-    //       comments: false,
-    //     },
-    //     extractComments: 'all',
-    //     compress: {
-    //       drop_console: false,
-    //     },
-    //   },
-    // })],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js|.jsx?$/,
-        exclude: /(node_modules)/,
-        loaders: ["babel-loader"]
-      }, {
-        test: /\.css$/,
-        exclude: /(node_modules)/,
-        use: [
-          'style-loader',
-          'css-loader',
-          {
-            loader: "postcss-loader",
-            options: {
-              config: {path: 'postcss.config.js'},
-            }
-          }
-        ]
-      }, {
-        test: /\.scss$/,
-        use: [
-          "style-loader",
-          "css-loader",
-          {
-            loader: "postcss-loader",
-            options: {config: {
-              path: './postcss.config.js'
-            }}
-          },
-          "sass-loader"
-        ]
-      }, {
-        test: /\.(png|jpg|gif|svg)$/i,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8192,
-              esModule: false,
-            },
-          },
-        ],
-      }
-    ]
-  },
-  mode: 'production',
-};
-
-function scripts() {
-  return src('./src/scripts/main.js')
-  .pipe(webpack(webpackConfig))
-  .pipe(dest('./public/js'))
-  .pipe(connect.reload());
-}
-
-
+const scripts = tasks.scriptsTask.scripts;
+const scriptsDebug = tasks.scriptsTask.scriptsDebug;
 
 // Просмотр файлов
+
 function watcher() {
   watch('./src/templates/*/*.twig', templates);
   watch('./src/styles/*/*.scss', style);
   watch('./src/scripts/*.js', scripts);
+}
+
+function watcherDebug() {
+  watch('./src/templates/*/*.twig', templates);
+  watch('./src/styles/*/*.scss', styleDebug);
+  watch('./src/scripts/*.js', scriptsDebug);
 }
 
 // Задачи для сборки
@@ -122,6 +46,11 @@ exports.image = image;
 build = parallel(templates, style, scripts);
 exports.build = build;
 
+// Сборка с sourceMap для стилей и скрипто, консоль логи вырезать не буду
+
+buildDev = parallel(templates, styleDebug, scriptsDebug);
+exports.buildDev = buildDev;
+
 // Служебные функции, для создания архтвов
 exports.project = project;
 exports.client = client;
@@ -132,3 +61,4 @@ exports.archives = archives;
 exports.validate = validate;
 
 exports.default = series(build, parallel(watcher, serveTask));
+exports.dev = series(buildDev, parallel(watcherDebug, serveTask));

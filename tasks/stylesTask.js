@@ -37,10 +37,10 @@ module.exports.styleDebug = function() {
   return src('./src/styles/main.scss')
   .pipe(sourcemaps.init())
   .pipe(sass().on('error', sass.logError))
-  .pipe(autoprefixer({
-    cascade: false,
-    overrideBrowserslist: ['last 2 versions']
-  }))
+  // .pipe(autoprefixer({
+  //   cascade: false,
+  //   overrideBrowserslist: ['last 2 versions']
+  // }))
   .pipe(base64({
     baseDir: 'src',
     maxWeightResource: 32768,
@@ -59,4 +59,4 @@ module.exports.styleDebug = function() {
   .pipe(connect.reload());
 }
 
-module.exports.style.styleDebug = 'StyleDebugTask';
+module.exports.styleDebug.displayName = 'StyleDebugTask';

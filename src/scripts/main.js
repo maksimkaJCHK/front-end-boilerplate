@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import React, {Component} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 
 const node = document.getElementById('inpReact');
