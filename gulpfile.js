@@ -1,4 +1,4 @@
-const  { src, dest, parallel, watch, series } = require('gulp');
+const  { parallel, watch, series } = require('gulp');
 
 const requireDir = require('require-dir');
 const tasks = requireDir('./tasks');
@@ -46,7 +46,7 @@ exports.image = image;
 build = parallel(templates, style, scripts);
 exports.build = build;
 
-// Сборка с sourceMap для стилей и скрипто, консоль логи вырезать не буду
+// Сборка с sourceMap для стилей и скриптов, консоль логи вырезать не буду
 
 buildDev = parallel(templates, styleDebug, scriptsDebug);
 exports.buildDev = buildDev;
