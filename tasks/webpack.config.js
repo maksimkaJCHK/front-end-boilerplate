@@ -13,6 +13,7 @@ module.exports = {
     filename: '[name].js',
   },
   mode: 'production',
+  devtool: false,
   target: ['web', 'es5'],
   //target: 'web'
   module: {
@@ -68,8 +69,6 @@ module.exports = {
       }
     ]
   },
-  mode: 'production',
-  devtool: false,
   optimization: {
     minimize: true,
     usedExports: true,

@@ -12,7 +12,7 @@ module.exports = {
     path: paths.build,
     filename: '[name].js',
   },
-  mode: 'development',
+  mode: 'production',
   devtool: 'inline-source-map',
   target: ['web', 'es5'],
   //target: 'web'
@@ -69,7 +69,6 @@ module.exports = {
       }
     ]
   },
-  mode: 'production',
   optimization: {
     minimize: false,
     usedExports: true,
